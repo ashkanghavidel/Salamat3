@@ -1,0 +1,40 @@
+{% load static %}
+<div class="ui cards">
+    {% for visit_map in visitTimeIntervalMaps %}
+        {% if visit_map.status and visit_map.checked %}
+            <div style="direction: rtl" class="ui success message">
+                <i class="close icon"></i>
+                <div class="header">
+                    شما یک نوبت تایید شده دارید
+                </div>
+                <ul class="list">
+                    <li>{{ visit_map.visitTimeInterval.dailyTimeTable.date }}</li>
+                    <li>از ساعت {{ visit_map.visitTimeInterval.startTime }}تا ساعت {{ visit_map.visitTimeInterval.endTime }}</li>
+                </ul>
+            </div>
+        {% elif  visit_map.status == False and visit_map.checked == True %}
+           <div style="direction: rtl" class="ui error message">
+                <i class="close icon"></i>
+                <div class="header">
+                    شما یک نوبت رد شده دارید
+                </div>
+                <ul class="list">
+                    <li>{{ visit_map.visitTimeInterval.dailyTimeTable.date }}</li>
+                    <li>از ساعت {{ visit_map.visitTimeInterval.startTime }}تا ساعت {{ visit_map.visitTimeInterval.endTime }}</li>
+                </ul>
+            </div>
+        {% else %}
+            <div style="direction: rtl" class="ui warning message">
+                <i class="close icon"></i>
+                <div class="header">
+                    شما یک نوبت تایید نشده دارید
+                </div>
+                <ul class="list">
+                    <li>{{ visit_map.visitTimeInterval.dailyTimeTable.date }}</li>
+                    <li>از ساعت {{ visit_map.visitTimeInterval.startTime }}تا ساعت {{ visit_map.visitTimeInterval.endTime }}</li>
+                </ul>
+            </div>
+        {% endif %}
+    {% endfor %}
+</div>
+{#</body>#}

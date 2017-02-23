@@ -1,0 +1,60 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" href={% static "semantic/semantic.min.css" %}/>
+    <script type="text/javascript" src={% static "semantic/semantic.min.js" %}></script>
+
+    <link rel="stylesheet" type="text/css" href={% static "css/font-face.css" %}/>
+    <style>
+        body {
+            font-family: 'BYek';
+            direction: rtl;
+        }
+
+        .field {
+            font-size: 1.5em;
+        }
+
+    </style>
+</head>
+<body>
+{% if search_is_done %}
+    <div style="position: relative;margin: 50px 20% 25px 20%">
+        {% for doctor in doctors %}
+            <div class="ui red message">
+                <div class="header">
+                    <a href="../profile-interface/{{ doctor.user.username }}">{{ doctor.user.username }}</a>
+                </div>
+                <ul class="list">
+                    <li>{{ doctor.doctorDegree.degreeTitle }}</li>
+                    <li>{{ doctor.doctorDegree.degree}}</li>
+                </ul>
+            </div>
+        {% endfor %}
+    </div>
+{% else %}
+    <div style="position: relative;margin: 50px 20% 25px 20%">
+        <h1 style="font-family: 'XB Shafigh';position: relative;text-align: center">پزشک خود را جستجو کنید...</h1>
+        <form class="ui form" action="" method="post">
+            {% csrf_token %}
+            <div class="field">
+                <label>تخصص پزشک</label>
+                <input id="expertise" type="text" name="degree-title" placeholder="غدد داخلی">
+            </div>
+            <div class="field">
+                <label>محل مطب</label>
+                <input id="office-address" type="text" name="office-address" placeholder="تهران">
+            </div>
+            <div class="field">
+                <label>بیمه های تحت پوشش</label>
+                <input id="insurance" type="text" name="insurance" placeholder="بیمه ایران">
+            </div>
+            <button style="margin: 0 45% 0 45%; " class="ui green button" type="submit">جستجو</button>
+        </form>
+    </div>
+{% endif %}
+</body>
+</html>
